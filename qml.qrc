@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>bg.jpeg</file>
+        <file>get_json.js</file>
+    </qresource>
+</RCC>
