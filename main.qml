@@ -7,7 +7,7 @@ import "get_json.js" as Get_json
 Item{
     width: 300
     height: 300
-     signal next()
+    signal next()
     Audio{
         objectName: "player"
         id:player_player
