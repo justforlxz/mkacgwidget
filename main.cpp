@@ -20,11 +20,10 @@ using namespace std;
 QList<QString> list_url;
 QList<QString> list_name;
 int play_list_num=0;
+
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
-    const QString URLSTR = "http://music.163.com/api/playlist/detail?id=23075108";
-    QString code;
        QQuickView viwer;
        //无边框，背景透明
        viwer.setFlags(Qt::FramelessWindowHint);
@@ -35,23 +34,14 @@ int main(int argc, char *argv[])
        //将viewer设置为main.qml属性
        viwer.rootContext()->setContextProperty("mainwindow",&viwer);
        QObject *object = viwer.rootObject();
-
-       //redio
         player pl;
-        QMap<QString,QString>::iterator  map;
-
-
-        QObject *play=object->findChild<QObject*>("player");
-        if(play)
-              play->setProperty("source",player::url);
         QObject::connect(object,SIGNAL(next()),\
                            &pl,SLOT(slot_hex2dec()));
         QObject::connect(&pl,SIGNAL(sig_disp()),\
                            object,SLOT(loaded_play()));
 
-
+        QObject *play=object->findChild<QObject*>("player");
+        if(play)
+           //   play->setProperty("source",url);
         return app.exec();
-}
-void seturl(){
-
 }

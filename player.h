@@ -24,11 +24,11 @@ public:
     player(const player &);
     player &operator=(const player &);
     QMap<QString,QString> json();
-    ~player();
     QList<QString> list_url;
     QList<QString> list_name;
     QMap<QString,QString> map;
-    static QString url;
+    ~player();
+
 signals:
     void sig_disp();
 public slots:

@@ -23,6 +23,7 @@ player &player::operator=(const player &rhs)
 void player::slot_hex2dec()
 {
      emit player::sig_disp();
+
 }
 
 player::~player()
@@ -31,6 +32,7 @@ player::~player()
 }
 
 QMap<QString,QString> player::json(){
+
     list_name.empty();
     list_url.empty();
     map.empty();
@@ -71,7 +73,7 @@ QMap<QString,QString> player::json(){
                     list_name.append(music_info["name"].toString());
             }
             map.insert(list_url[ran_num],list_name[ran_num]);
-            player::url=list_url[ran_num];
+          // url=list_url[ran_num];
         }
     } else {
         qFatal(error.errorString().toUtf8().constData());
