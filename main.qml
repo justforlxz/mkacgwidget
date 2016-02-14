@@ -110,7 +110,14 @@ Item{
                      })
     }
     function loaded_play(){
+        player_player.stop()
       console.log("source:>>"+player_player.source.toString())
       player_player.play()
+    }
+    function pause(){
+        player_player.pause()
+    }
+    function stop(){
+            player_player.stop()
     }
 }
