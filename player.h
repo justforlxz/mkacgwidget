@@ -13,6 +13,7 @@
 #include <QList>
 #include <iostream>
 #include <string>
+#include <QVector>
 class playerData;
 
 class player : public QObject
@@ -23,14 +24,14 @@ public:
     player();
     player(const player &);
     player &operator=(const player &);
-    QMap<QString,QString> json();
+    QVector<QString>  json();
     QList<QString> list_url;
     QList<QString> list_name;
-    QMap<QString,QString> map;
     ~player();
 
 signals:
     void sig_disp();
+    void sig(QVariant str_num);
 public slots:
     void slot_hex2dec();
 

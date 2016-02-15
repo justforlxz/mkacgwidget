@@ -12,6 +12,18 @@ Item{
         objectName: "player"
         id:player_player
         volume: 1.0
+        function do_play_stats_changed()
+          {
+            if( player_player.playbackState === Audio.StoppedState){
+                    next()
+            }
+          }
+          onPlaybackStateChanged: {
+            do_play_stats_changed();
+          }
+          onErrorChanged: {
+            console.log("audio error :" + _audio.errorString);
+    }
     }
     Rectangle {
        anchors.fill: parent
@@ -24,8 +36,6 @@ Item{
             fillMode: Image.PreserveAspectFit
             source: "qrc:/bg.jpeg"
         }
-
-
 
         MouseArea {
             id: dragRegion
@@ -70,9 +80,18 @@ Item{
                 }
             }
             MenuItem {
-                text: "下一曲"
+                id:redio_on
+                text: "开启电台"
                 onTriggered: {next()}
             }
+            MenuItem {
+
+                id:redio_off
+                text: "关闭电台"
+                visible: false
+                onTriggered: {play_stop()}
+            }
+
             MenuSeparator { }
             MenuItem {
                 text: "退出"
@@ -96,10 +115,12 @@ Item{
                 width: 124
                 height: 74
                 wrapMode: Text.Wrap
+
                 font.pixelSize: 12
             }
         }
         Component.onCompleted: {
+
                 get_hitokoto()
         }
     }
@@ -109,15 +130,18 @@ Item{
                             show_window_text.text=json.hitokoto;
                      })
     }
-    function loaded_play(){
-        player_player.stop()
-      console.log("source:>>"+player_player.source.toString())
-      player_player.play()
-    }
-    function pause(){
+    function loaded_play(str_num){
+        redio_off.visible=true
+        redio_on.text="下一曲"
+
         player_player.pause()
+        player_player.source=str_num
+        player_player.play()
     }
-    function stop(){
-            player_player.stop()
+    function play_stop(){
+        redio_off.visible=false
+        redio_on.text="开启电台"
+
+        player_player.pause()
     }
 }

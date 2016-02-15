@@ -1,8 +1,8 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QQuickView>
-#include<QColor>
-#include<QQmlContext>
+#include <QColor>
+#include <QQmlContext>
 #include <QQmlComponent>
 #include <QQmlProperty>
 #include <QObject>
@@ -37,11 +37,12 @@ int main(int argc, char *argv[])
         player pl;
         QObject::connect(object,SIGNAL(next()),\
                            &pl,SLOT(slot_hex2dec()));
-        QObject::connect(&pl,SIGNAL(sig_disp()),\
-                           object,SLOT(loaded_play()));
+        QObject::connect(&pl,SIGNAL(sig(QVariant)),\
+                           object,SLOT(loaded_play(QVariant)));
 
-        QObject *play=object->findChild<QObject*>("player");
-        if(play)
-           //   play->setProperty("source",url);
+//        QObject *play=object->findChild<QObject*>("player");
+//        if(play)
+//              play->setProperty("source",url);
+
         return app.exec();
 }
