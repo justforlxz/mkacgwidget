@@ -34,7 +34,7 @@ Item{
             width: 230
             height: 230
             fillMode: Image.PreserveAspectFit
-            source: "qrc:/bg.jpeg"
+            source: "qrc:/bg.png"
         }
 
         MouseArea {
@@ -77,6 +77,7 @@ Item{
 
                 MenuItem {
                     text: "Do Nothing"
+                    onTriggered:{}
                 }
             }
             MenuItem {
