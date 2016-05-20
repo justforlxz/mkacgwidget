@@ -2,6 +2,18 @@
     <qresource prefix="/">
         <file>main.qml</file>
         <file>get_json.js</file>
+        <file>Images/hp_bar.png</file>
+        <file>Images/hp_bar_ex.png</file>
+        <file>Images/hp_green.png</file>
+        <file>Images/hp_red.png</file>
+        <file>Images/hp_yellow.png</file>
+        <file>Images/icon_hover.png</file>
+        <file>Images/icon_normal.png</file>
+        <file>Images/sp_bar.png</file>
+        <file>Images/sp_green.png</file>
+        <file>Images/sp_red.png</file>
+        <file>Images/sp_yellow.png</file>
         <file>bg.png</file>
+        <file>sao_hpbar.qml</file>
     </qresource>
 </RCC>

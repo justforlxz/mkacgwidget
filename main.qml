@@ -1,7 +1,7 @@
 import QtQuick 2.0
 import QtQuick.Window 2.0
 import QtQuick.Controls 1.4
-import QtMultimedia 5.5
+import QtMultimedia 5.6
 import "get_json.js" as Get_json
 
 Item{
@@ -125,6 +125,7 @@ Item{
                 get_hitokoto()
         }
     }
+
     function get_hitokoto(){
         Get_json.get("http://api.hitokoto.us/rand?charset=utf-8&encode=json",
                      function(result,json){

@@ -4,6 +4,7 @@
 #include <QColor>
 #include <QQmlContext>
 #include <QQmlComponent>
+
 #include <QQmlProperty>
 #include <QObject>
 #include <QDebug>
@@ -28,11 +29,25 @@ int main(int argc, char *argv[])
        //无边框，背景透明
        viwer.setFlags(Qt::FramelessWindowHint);
        viwer.setColor(QColor(Qt::transparent));
+
        //加载qml，qml添加到资源文件中可避免qml暴露
        viwer.setSource(QUrl("qrc:/main.qml"));
        viwer.show();
+
+
+       QQuickView sao_hpbar;
+       sao_hpbar.setFlags(Qt::FramelessWindowHint);
+       sao_hpbar.setColor(QColor(Qt::transparent));
+        sao_hpbar.setSource(QUrl("qrc:/sao_hpbar.qml"));
+        sao_hpbar.show();
+
+
+       sao_hpbar.rootContext()->setContextProperty("mainwindow",&sao_hpbar);
+
        //将viewer设置为main.qml属性
        viwer.rootContext()->setContextProperty("mainwindow",&viwer);
+
+
        QObject *object = viwer.rootObject();
         player pl;
         QObject::connect(object,SIGNAL(next()),\
