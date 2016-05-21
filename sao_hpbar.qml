@@ -1,25 +1,96 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.4
+import QtGraphicalEffects 1.0
 Item {
 
-    width: 352
-    height: 62
+    width: 360
+    height: 70
     Rectangle {
-       anchors.fill: parent
+        width: 352
+        height: 62
+        anchors.fill: parent
         color:Qt.rgba(0,0,0,0.0)
+        anchors.rightMargin: 0
+        anchors.bottomMargin: 0
+        anchors.leftMargin: 8
+        anchors.topMargin: 0
         Image{
-            width: 352
-            height: 62
-            fillMode: Image.PreserveAspectFit
+            id:hp_bar
             source: "qrc:/Images/hp_bar.png"
+
+        }
+        Image{
+            id:hp_bar_hp
+            x: 72.5
+            y: 12
+            source:"qrc:/Images/hp_green.png"
+            visible: false
+        }
+        Canvas {
+            id: mycanvas
+            x: 73
+            y: 12
+            width: 258
+            height: 24
+
+          onPaint: {
+                  var ctx = getContext("2d")
+             // store current context setup
+             ctx.save()
+             ctx.strokeStyle = 'rgba(0,0,0,0)'
+             // create a triangle as clip region
+             ctx.beginPath()
+             ctx.moveTo(0,0)
+             ctx.lineTo(258,0)
+             ctx.lineTo(253,15)
+             ctx.lineTo(135,15)
+             ctx.lineTo(132,24)
+             ctx.lineTo(0,24)
+             ctx.closePath()
+             // translate coordinate system
+             ctx.translate(0,0)
+             ctx.clip()  // create clip from triangle path
+             // draw image with clip applied
+             ctx.drawImage('Images/hp_green.png', 0,0)
+             // draw stroke around path
+             ctx.stroke()
+             // restore previous setup
+             ctx.restore()
+
+         }
+        Component.onCompleted: {
+            loadImage("Images/hp_green.png")
         }
 
+        }
+        FontLoader {
+               id: saofont
+               source: "Fonts/SAOUI.ttf"
+           }
+        Label{
+            x: 36
+            y: 12
+            width: 36
+            height: 27
+            color: "#ffffff"
+            text:"Kirito"
+            font.bold: true
+            font.pointSize: 12
+            textFormat: Text.AutoText
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment: Text.AlignHCenter
+            font.family: saofont.name
+        }
         MouseArea {
         id: dragRegion1
         anchors.fill: parent
         property point clickPos: "0,0"
-        anchors.leftMargin: 64
-        anchors.topMargin: 70
+        width: 352
+        height: 62
+        anchors.rightMargin: 0
+        anchors.bottomMargin: 0
+        anchors.leftMargin: 0
+        anchors.topMargin: 0
         onPressed: {
             clickPos  = Qt.point(mouse.x,mouse.y)
         }
@@ -33,6 +104,17 @@ Item {
         }
         acceptedButtons: Qt.LeftButton
 
-}
+        }
     }
+        Rectangle{
+            x: 2.5
+            y: 13.5
+            Image{
+                x: 0
+                y: 0
+                source: "qrc:/Images/icon_normal.png"
+            }
+        }
+
+
 }

@@ -15,5 +15,9 @@
         <file>Images/sp_yellow.png</file>
         <file>bg.png</file>
         <file>sao_hpbar.qml</file>
+        <file>Fonts/FZZY.ttf</file>
+        <file>Fonts/SAOUI.ttf</file>
+        <file>Images/back2.png</file>
+        <file>Images/back1.png</file>
     </qresource>
 </RCC>

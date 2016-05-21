@@ -29,12 +29,13 @@ Item{
        anchors.fill: parent
         color:Qt.rgba(0,0,0,0.0)
         Image{
+            id:mainImage
             x: 70
             y: 70
             width: 230
             height: 230
             fillMode: Image.PreserveAspectFit
-            source: "qrc:/bg.png"
+            source: "Images/back1.png"
         }
 
         MouseArea {
@@ -71,13 +72,16 @@ Item{
                 text: "每日一句"
                 onTriggered: {get_hitokoto()}
             }
-
             Menu {
                 title: "换肤"
 
                 MenuItem {
-                    text: "Do Nothing"
-                    onTriggered:{}
+                    text: "默认皮肤"
+                    onTriggered:{mainImage.source="Images/back1.png"}
+                }
+                MenuItem{
+                    text: "第二皮肤"
+                    onTriggered: {mainImage.source="Images/back2.png"}
                 }
             }
             MenuItem {
@@ -131,6 +135,7 @@ Item{
                      function(result,json){
                             show_window_text.text=json.hitokoto;
                      })
+
     }
     function loaded_play(str_num){
         redio_off.visible=true

@@ -16,6 +16,7 @@
 #include <QtNetwork>
 #include <QList>
 #include <iostream>
+
 using namespace std;
 
 QList<QString> list_url;
@@ -33,14 +34,13 @@ int main(int argc, char *argv[])
        //加载qml，qml添加到资源文件中可避免qml暴露
        viwer.setSource(QUrl("qrc:/main.qml"));
        viwer.show();
-
+        viwer.show();
 
        QQuickView sao_hpbar;
        sao_hpbar.setFlags(Qt::FramelessWindowHint);
        sao_hpbar.setColor(QColor(Qt::transparent));
         sao_hpbar.setSource(QUrl("qrc:/sao_hpbar.qml"));
         sao_hpbar.show();
-
 
        sao_hpbar.rootContext()->setContextProperty("mainwindow",&sao_hpbar);
 
@@ -61,3 +61,4 @@ int main(int argc, char *argv[])
 
         return app.exec();
 }
+
