@@ -68,6 +68,7 @@ Item {
                source: "Fonts/SAOUI.ttf"
            }
         Label{
+            id:hpbar_name
             x: 35
             y: 12
             width: 36

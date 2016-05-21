@@ -22,7 +22,7 @@ Item{
             do_play_stats_changed();
           }
           onErrorChanged: {
-            console.log("audio error :" + _audio.errorString);
+            console.log("audio error :" + player_player.errorString);
     }
     }
     Rectangle {
