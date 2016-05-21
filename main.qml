@@ -133,7 +133,8 @@ Item{
     function get_hitokoto(){
         Get_json.get("http://api.hitokoto.us/rand?charset=utf-8&encode=json",
                      function(result,json){
-                            show_window_text.text=json.hitokoto;
+                           show_window_text.text=json.hitokoto;
+                        // show_window_text.text="ギリギリ爱\nギリギリ爱"
                      })
 
     }

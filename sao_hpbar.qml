@@ -68,7 +68,7 @@ Item {
                source: "Fonts/SAOUI.ttf"
            }
         Label{
-            x: 36
+            x: 35
             y: 12
             width: 36
             height: 27
@@ -81,6 +81,37 @@ Item {
             horizontalAlignment: Text.AlignHCenter
             font.family: saofont.name
         }
+        Label{
+            id:hpbar_hp
+            x: 218
+            y: 36
+            width: 74
+            height: 23
+            text:"14500/14500"
+            color:"#ffffff"
+            font.bold: true
+            font.pointSize: 10
+            textFormat: Text.AutoText
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment: Text.AlignHCenter
+            font.family: saofont.name
+        }
+        Label{
+            id:hpbar_level
+            x: 301
+            y: 39
+            width: 36
+            height: 16
+            text:"Lv.96"
+            color:"#ffffff"
+            font.bold: true
+            font.pointSize: 10
+            textFormat: Text.AutoText
+            verticalAlignment: Text.AlignVCenter
+            horizontalAlignment: Text.AlignHCenter
+            font.family: saofont.name
+        }
+
         MouseArea {
         id: dragRegion1
         anchors.fill: parent
