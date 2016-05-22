@@ -2,6 +2,7 @@ import QtQuick 2.0
 import QtQuick.Window 2.0
 import QtQuick.Controls 1.4
 import QtMultimedia 5.6
+
 import "get_json.js" as Get_json
 
 Item{
@@ -23,7 +24,7 @@ Item{
           }
           onErrorChanged: {
             console.log("audio error :" + player_player.errorString);
-    }
+     }
     }
     Rectangle {
        anchors.fill: parent
@@ -70,7 +71,10 @@ Item{
 
             MenuItem {
                 text: "每日一句"
-                onTriggered: {get_hitokoto()}
+                onTriggered: {
+                    show_window.visible=true;
+                    get_hitokoto();
+                }
             }
             Menu {
                 title: "换肤"
@@ -127,15 +131,23 @@ Item{
         Component.onCompleted: {
 
                 get_hitokoto()
+
+        }
+        Timer {
+            id:timer
+            interval: 5000; running: true; repeat: false
+            onTriggered: show_window.visible=false;
         }
     }
 
     function get_hitokoto(){
+        timer.stop()
         Get_json.get("http://api.hitokoto.us/rand?charset=utf-8&encode=json",
                      function(result,json){
                            show_window_text.text=json.hitokoto;
                         // show_window_text.text="ギリギリ爱\nギリギリ爱"
                      })
+          timer.start()
 
     }
     function loaded_play(str_num){

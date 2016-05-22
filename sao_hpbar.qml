@@ -141,10 +141,28 @@ Item {
         Rectangle{
             x: 2.5
             y: 13.5
+            width: 22
+            height: 22
+
+            color:Qt.rgba(0,0,0,0.0)
             Image{
+                id:hpbar_icon
                 x: 0
                 y: 0
-                source: "qrc:/Images/icon_normal.png"
+            }
+            MouseArea{
+                anchors.fill: parent
+                hoverEnabled: true
+                onEntered: {
+                                   hpbar_icon.source="qrc:/Images/icon_hover.png";
+                              }
+
+                              onExited: {
+                                   hpbar_icon.source="qrc:/Images/icon_normal.png";
+                              }
+            }
+            Component.onCompleted: {
+                  hpbar_icon.source="qrc:/Images/icon_normal.png";
             }
         }
 
