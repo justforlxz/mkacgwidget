@@ -9,6 +9,7 @@ Item{
     width: 300
     height: 300
     signal next()
+    signal voice()
     Audio{
         objectName: "player"
         id:player_player
@@ -76,6 +77,13 @@ Item{
                     get_hitokoto();
                 }
             }
+            MenuItem{
+                text:"voice command"
+                onTriggered: {
+                    voice();
+                }
+            }
+
             Menu {
                 title: "换肤"
 
@@ -163,5 +171,14 @@ Item{
         redio_on.text="开启电台"
 
         player_player.pause()
+    }
+    function show_text(str_num){
+        timer.stop()
+        Get_json.get("http://www.tuling123.com/openapi/api",
+                     str_num,
+                     function(result,json){
+                           show_window_text.text=json.text;
+                     })
+          timer.start()
     }
 }

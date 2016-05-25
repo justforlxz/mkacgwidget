@@ -12,6 +12,7 @@
 #include <QDebug>
 #include <QQuickItem>
 #include <player.h>
+#include <Voice.h>
 #include <QJsonDocument>
 #include <QJsonParseError>
 #include <QtCore>
@@ -20,6 +21,7 @@
 #include <iostream>
 #include <QSettings>
 #include <QFile>
+#include <QTimer>
 using namespace std;
 
 QList<QString> list_url;
@@ -100,10 +102,25 @@ int main(int argc, char *argv[])
         viwer.rootContext()->setContextProperty("mainwindow",&viwer);
         QObject *object = viwer.rootObject();
         player pl;
+        Voice _voice;
         QObject::connect(object,SIGNAL(next()),\
                            &pl,SLOT(slot_hex2dec()));
         QObject::connect(&pl,SIGNAL(sig(QVariant)),\
                            object,SLOT(loaded_play(QVariant)));
+
+        QTimer *timer = new QTimer();
+
+        QObject::connect(object,SIGNAL(voice()),\
+                         &_voice,SLOT(startInput()));
+
+        QObject::connect(&_voice,SIGNAL(send_time()),\
+                         timer,SLOT(start(3000)));
+
+        QObject::connect(timer,SIGNAL(timeout()),\
+                         &_voice,SLOT(inputFinish()));
+
+        QObject::connect(&_voice,SIGNAL(sig(QVariant)),\
+                         object,SLOT(show_text(QVariant)));
         return app.exec();
 }
 /**

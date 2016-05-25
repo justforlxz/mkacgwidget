@@ -2,10 +2,14 @@ TEMPLATE = app
 
 QT += qml quick
 QT += widgets
+QT += multimedia
 CONFIG += c++11
 
 SOURCES += main.cpp \
-    player.cpp
+    player.cpp \
+    Voice.cpp \
+    JasonQt/JasonQt_Net.cpp \
+    JasonQt/JasonQt_Vop.cpp
 
 RESOURCES += qml.qrc
 
@@ -16,4 +20,7 @@ QML_IMPORT_PATH =
 include(deployment.pri)
 
 HEADERS += \
-    player.h
+    player.h \
+    Voice.h \
+    JasonQt/JasonQt_Net.h \
+    JasonQt/JasonQt_Vop.h
