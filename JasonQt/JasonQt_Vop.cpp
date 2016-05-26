@@ -1,6 +1,7 @@
 #include "JasonQt_Vop.h"
-
+#include "iostream"
 using namespace JasonQt_Vop;
+//"pxxHWz9KmNsleFBsuWHQ77Hd", "b5a9a0eb50d410b0dccd3eec5fc30388"
 
 BaiduVop::BaiduVop(const QString &apiKey, const QString &secretKey):
     m_apiKey(apiKey),
@@ -31,7 +32,7 @@ void BaiduVop::setDevice(const QAudioDeviceInfo &device)
 bool BaiduVop::refreshToken(void)
 {
     QNetworkRequest request(QUrl(QString("https://openapi.baidu.com/oauth/2.0/token?")));
-    QByteArray append = QString("grant_type=client_credentials&client_id=%1&client_secret=%2&").arg("54GzQbyspseUfRUbvDdVMKQW").arg("9dfXhqPz0F6RrpoNLAzMzkBLz4fpHPu9").toLatin1();
+    QByteArray append = QString("grant_type=client_credentials&client_id=%1&client_secret=%2&").arg("pxxHWz9KmNsleFBsuWHQ77Hd").arg("b5a9a0eb50d410b0dccd3eec5fc30388").toLatin1();
     QByteArray buf;
 
     request.setRawHeader("Content-Type", "application/json");
@@ -43,17 +44,18 @@ bool BaiduVop::refreshToken(void)
     if(data.isEmpty() || !data.contains("access_token")) { return false; }
 
     m_token = data["access_token"].toString();
+    std::cout<<m_token.toStdString();
     return true;
 }
 
 bool BaiduVop::start(void)
 {
     if(m_token.isEmpty())
-    {
+   {
         qDebug("BaiduVop::start fail, Need refresh token befor start.");
         return false;
-    }
-
+   }
+    qDebug("BaiduVop::Success get token");
     m_buffer = new QBuffer;
     m_buffer->open(QIODevice::ReadWrite);
     m_audioInput->start(m_buffer);
@@ -78,7 +80,7 @@ std::pair<bool, QString> BaiduVop::finish(void)
     append["channel"] = 1;
     append["token"] = m_token;
     append["lan"] = "zh";
-    append["cuid"] = "JasonQt";
+    append["cuid"] = "kirigaya";
     append["speech"] = QString(sendData.toBase64());
     append["len"] = sendData.size();
 

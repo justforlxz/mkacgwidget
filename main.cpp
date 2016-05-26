@@ -11,8 +11,9 @@
 #include <QObject>
 #include <QDebug>
 #include <QQuickItem>
-#include <player.h>
-#include <Voice.h>
+#include "player.h"
+#include "Voice.h"
+#include "JasonQt/JasonQt_Vop.h"
 #include <QJsonDocument>
 #include <QJsonParseError>
 #include <QtCore>
@@ -102,24 +103,24 @@ int main(int argc, char *argv[])
         viwer.rootContext()->setContextProperty("mainwindow",&viwer);
         QObject *object = viwer.rootObject();
         player pl;
-        Voice _voice;
+        Voice *_voice=new Voice;
         QObject::connect(object,SIGNAL(next()),\
                            &pl,SLOT(slot_hex2dec()));
         QObject::connect(&pl,SIGNAL(sig(QVariant)),\
                            object,SLOT(loaded_play(QVariant)));
 
-        QTimer *timer = new QTimer();
+
 
         QObject::connect(object,SIGNAL(voice()),\
-                         &_voice,SLOT(startInput()));
+                         _voice,SLOT(startInput()));
 
-        QObject::connect(&_voice,SIGNAL(send_time()),\
-                         timer,SLOT(start(3000)));
+          QTimer *timer = new QTimer();
+          timer->setSingleShot(true);
+            timer->start(5000);
+       QObject::connect(timer,SIGNAL(timeout()),\
+                         _voice,SLOT(inputFinish()));
 
-        QObject::connect(timer,SIGNAL(timeout()),\
-                         &_voice,SLOT(inputFinish()));
-
-        QObject::connect(&_voice,SIGNAL(sig(QVariant)),\
+        QObject::connect(_voice,SIGNAL(sig(QVariant)),\
                          object,SLOT(show_text(QVariant)));
         return app.exec();
 }

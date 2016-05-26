@@ -50,7 +50,7 @@ void player::slot_hex2dec()
         if (jsonDocument.isObject()) {
             QVariantMap result = jsonDocument.toVariant().toMap();
             QVariantMap nestedMap = result["result"].toMap();
-            int i=0;
+            //int i=0;
             foreach (QVariant plugin, nestedMap["tracks"].toList()) {
                 QVariantMap music_info=plugin.toMap();
                 //qDebug() << "mp3Url:" << test["mp3Url"].toString();

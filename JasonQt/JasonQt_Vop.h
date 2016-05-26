@@ -9,7 +9,6 @@
 
 #include <QAudioInput>
 #include <QAudioDeviceInfo>
-
 // JasonQt lib import
 #include "JasonQt_Net.h"
 
@@ -26,7 +25,8 @@ private:
     QString m_apiKey;
     QString m_secretKey;
     QString m_token;
-
+    QString apiKey="pxxHWz9KmNsleFBsuWHQ77Hd";
+    QString secretKey="b5a9a0eb50d410b0dccd3eec5fc30388";
     QAudioInput *m_audioInput = NULL;
     QByteArray m_buf;
     QBuffer *m_buffer = NULL;
@@ -35,7 +35,6 @@ private:
 
 public:
     BaiduVop(const QString &apiKey, const QString &secretKey);
-
     void setDevice(const QAudioDeviceInfo &device);
 
 public slots:

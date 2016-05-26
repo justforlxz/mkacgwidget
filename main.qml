@@ -174,11 +174,19 @@ Item{
     }
     function show_text(str_num){
         timer.stop()
+        console.log(str_num)
+        if(str_num=="识别错误"){
+            show_window_text.text="识别错误";
+            timer.start()
+        }
+        else{
         Get_json.get("http://www.tuling123.com/openapi/api",
                      str_num,
                      function(result,json){
                            show_window_text.text=json.text;
                      })
           timer.start()
+
+        }
     }
 }
