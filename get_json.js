@@ -2,7 +2,7 @@
 function func() {
 
 }
-var url="http://api.hitokoto.us/rand?charset=utf-8&encode=json";
+// var url="http://api.hitokoto.us/rand?charset=utf-8&encode=json";
 // GET
 function get(url, success, failure)
 {

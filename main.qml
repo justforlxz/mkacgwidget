@@ -9,7 +9,8 @@ Item{
     width: 300
     height: 300
     signal next()
-    signal voice()
+    signal voice_start()
+    signal voice_end()
     Audio{
         objectName: "player"
         id:player_player
@@ -80,7 +81,9 @@ Item{
             MenuItem{
                 text:"voice command"
                 onTriggered: {
-                    voice();
+                    set_end.stop()
+                    voice_start()
+                    set_end.start()
                 }
             }
 
@@ -146,22 +149,25 @@ Item{
             interval: 5000; running: true; repeat: false
             onTriggered: show_window.visible=false;
         }
+        Timer{
+            id:set_end
+            interval: 5000;repeat: false
+            onTriggered: {
+                voice_end()
+            }
+        }
     }
-
     function get_hitokoto(){
         timer.stop()
         Get_json.get("http://api.hitokoto.us/rand?charset=utf-8&encode=json",
                      function(result,json){
                            show_window_text.text=json.hitokoto;
-                        // show_window_text.text="ギリギリ爱\nギリギリ爱"
                      })
           timer.start()
-
     }
     function loaded_play(str_num){
         redio_off.visible=true
         redio_on.text="下一曲"
-
         player_player.pause()
         player_player.source=str_num
         player_player.play()
@@ -169,7 +175,6 @@ Item{
     function play_stop(){
         redio_off.visible=false
         redio_on.text="开启电台"
-
         player_player.pause()
     }
     function show_text(str_num){
@@ -180,13 +185,14 @@ Item{
             timer.start()
         }
         else{
-        Get_json.get("http://www.tuling123.com/openapi/api",
-                     str_num,
-                     function(result,json){
-                           show_window_text.text=json.text;
+        Get_json.post("http://www.tuling123.com/openapi/api",
+                      "key=7319f41ea831612d94fb05c9de2cdaa3&info="+str_num,
+                      function(result,json){
+                          show_window.visible=true;
+                          show_window_text.text=json.text;
+                          console.log(result)
                      })
           timer.start()
-
         }
     }
 }

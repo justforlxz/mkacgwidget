@@ -22,12 +22,12 @@
 #include <iostream>
 #include <QSettings>
 #include <QFile>
-#include <QTimer>
 using namespace std;
 
 QList<QString> list_url;
 QList<QString> list_name;
 int play_list_num=0;
+
 
 int main(int argc, char *argv[])
 {
@@ -104,6 +104,8 @@ int main(int argc, char *argv[])
         QObject *object = viwer.rootObject();
         player pl;
         Voice *_voice=new Voice;
+
+
         QObject::connect(object,SIGNAL(next()),\
                            &pl,SLOT(slot_hex2dec()));
         QObject::connect(&pl,SIGNAL(sig(QVariant)),\
@@ -111,13 +113,10 @@ int main(int argc, char *argv[])
 
 
 
-        QObject::connect(object,SIGNAL(voice()),\
+        QObject::connect(object,SIGNAL(voice_start()),\
                          _voice,SLOT(startInput()));
 
-          QTimer *timer = new QTimer();
-          timer->setSingleShot(true);
-            timer->start(5000);
-       QObject::connect(timer,SIGNAL(timeout()),\
+        QObject::connect(object,SIGNAL(voice_end()),\
                          _voice,SLOT(inputFinish()));
 
         QObject::connect(_voice,SIGNAL(sig(QVariant)),\
