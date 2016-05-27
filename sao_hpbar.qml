@@ -16,7 +16,8 @@ Item {
         anchors.topMargin: 0
         Image{
             id:hp_bar
-            source: "qrc:/Images/hp_bar.png"
+            objectName: "hp_bar_objectName"
+            source: hp_bar_src
 
         }
         Image{

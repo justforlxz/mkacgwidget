@@ -12,8 +12,7 @@ HEADERS += \
     JasonQt/JasonQt_Net.h \
     JasonQt/JasonQt_Vop.h
 
-
-SOURCES += main.cpp \
+SOURCES +=main.cpp \
     player.cpp \
     Voice.cpp \
     JasonQt/JasonQt_Net.cpp \

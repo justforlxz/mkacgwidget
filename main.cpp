@@ -13,6 +13,7 @@
 #include <QQuickItem>
 #include "player.h"
 #include "Voice.h"
+#include "linuserdesktop.h"
 #include "JasonQt/JasonQt_Vop.h"
 #include <QJsonDocument>
 #include <QJsonParseError>
@@ -21,17 +22,16 @@
 #include <QList>
 #include <iostream>
 #include <QSettings>
+#include <QByteArray>
 #include <QFile>
 using namespace std;
 
-QList<QString> list_url;
-QList<QString> list_name;
-int play_list_num=0;
 
 
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
+
 //声明变量区域
     float screenWidth     = 0;
     float screenHeight    = 0;
@@ -99,20 +99,39 @@ int main(int argc, char *argv[])
         sao_hpbar.show();
 
         sao_hpbar.rootContext()->setContextProperty("mainwindow",&sao_hpbar);
+
+
+//sao电量显示
+        QFile acLine("/sys/class/power_supply/AC/online");
+        QFile bCap("/sys/class/power_supply/BAT0/capacity");
+        if(acLine.exists()){
+            acLine.open(QIODevice::ReadOnly | QIODevice::Text);
+                QByteArray i=acLine.readAll();
+                qDebug()<<i<<i.size();
+                if(i=="1\n"){
+                    qDebug("1被执行了");
+                    sao_hpbar.rootContext()->setContextProperty("hp_bar_src","qrc:/Images/hp_bar_ex.png");
+
+                }
+                else{
+                     qDebug("2被执行了");
+                      sao_hpbar.rootContext()->setContextProperty("hp_bar_src","qrc:/Images/hp_bar.png");
+                }
+              acLine.close();
+        }
+
 //将viewer设置为main.qml属性
         viwer.rootContext()->setContextProperty("mainwindow",&viwer);
         QObject *object = viwer.rootObject();
         player pl;
         Voice *_voice=new Voice;
 
-
+//设置电台
         QObject::connect(object,SIGNAL(next()),\
                            &pl,SLOT(slot_hex2dec()));
         QObject::connect(&pl,SIGNAL(sig(QVariant)),\
                            object,SLOT(loaded_play(QVariant)));
-
-
-
+//设置语音
         QObject::connect(object,SIGNAL(voice_start()),\
                          _voice,SLOT(startInput()));
 
@@ -128,3 +147,4 @@ int main(int argc, char *argv[])
     配置文件代码来自 http://blog.csdn.net/xwdpepsi/article/details/8523080
 
   */
+
