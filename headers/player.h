@@ -14,29 +14,31 @@
 #include <iostream>
 #include <string>
 #include <QVector>
+#include "QQuickView"
 class playerData;
 
-class player : public QObject
+class Player : public QObject
 {
      Q_OBJECT
 
 public:
-    player();
-    player(const player &);
-    player &operator=(const player &);
-    QVector<QString>  json();
+    Player();
     QList<QString> list_url;
     QList<QString> list_name;
-    ~player();
+    QQuickView viwer;
+    void setXY(float hajimeX,float hajimeY);
+    void show();
+    ~Player();
 
 signals:
     void sig_disp();
     void sig(QVariant str_num);
+    void sig_hitokoto(QVariant str_num);
 public slots:
     void slot_hex2dec();
+    void slot_hitokoto();
 
 private:
-    QSharedDataPointer<playerData> data;
 };
 
 #endif // PLAYER_H

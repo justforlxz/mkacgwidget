@@ -17,7 +17,7 @@ Item {
         Image{
             id:hp_bar
             objectName: "hp_bar_objectName"
-            source: hp_bar_src
+            source: "qrc:/Images/hp_bar.png"
 
         }
         Image{

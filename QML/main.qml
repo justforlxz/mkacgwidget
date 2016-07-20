@@ -11,6 +11,7 @@ Item{
     signal next()
     signal voice_start()
     signal voice_end()
+    signal hitokoto()
     Audio{
         objectName: "player"
         id:player_player
@@ -75,7 +76,9 @@ Item{
                 text: "每日一句"
                 onTriggered: {
                     show_window.visible=true;
-                    get_hitokoto();
+
+//                    get_hitokoto();
+                    hitokoto();
                 }
             }
             MenuItem{
@@ -135,7 +138,7 @@ Item{
                 width: 124
                 height: 74
                 wrapMode: Text.Wrap
-
+                text: "我好想你呀～"
                 font.pixelSize: 12
             }
         }
@@ -157,13 +160,14 @@ Item{
             }
         }
     }
-    function get_hitokoto(){
+    function get_hitokoto(str){
         timer.stop()
-        Get_json.get("http://api.hitokoto.us/rand?charset=utf-8&encode=json",
-                     function(result,json){
-                           show_window_text.text=json.hitokoto;
-                     })
-          timer.start()
+//        Get_json.get("http://api.hitokoto.us/rand?charset=utf-8&encode=json",
+//                     function(result,json){
+//                           show_window_text.text=json.hitokoto;
+//                     })
+        show_window_text.text=str
+        timer.start()
     }
     function loaded_play(str_num){
         redio_off.visible=true

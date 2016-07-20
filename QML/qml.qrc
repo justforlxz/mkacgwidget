@@ -18,5 +18,6 @@
         <file>Fonts/SAOUI.ttf</file>
         <file>Images/back2.png</file>
         <file>Images/back1.png</file>
+        <file>test.qml</file>
     </qresource>
 </RCC>
