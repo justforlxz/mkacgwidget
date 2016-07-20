@@ -1,4 +1,4 @@
-# LinuserDesktop
+# mkacgwidget
 该项目是为了练习QT及QML代码。
 计划实现的功能有：
     显示一句动漫台词
