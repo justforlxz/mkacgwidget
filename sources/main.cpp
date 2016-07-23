@@ -4,15 +4,15 @@
 #include <QScreen>
 #include <QQmlProperty>
 #include <QObject>
-#include "JasonQt/JasonQt_Vop.h"
+#include "headers/JasonQt/JasonQt_Vop.h"
 #include <QtCore>
 #include <QtNetwork>
 #include <iostream>
 #include <QSettings>
 #include <QFile>
-#include "hpbar.h"
-#include "player.h"
-#include "Voice.h"
+#include "headers/hpbar.h"
+#include "headers/player.h"
+#include "headers/Voice.h"
 
 using namespace std;
 
@@ -75,6 +75,10 @@ int main(int argc, char *argv[]) {
     Player *player=new Player();
     player->show();
     player->setXY(hajimeX,hajimeY);
+
+//释放内存
+    delete player;
+    delete hpbar;
     return app.exec();
 }
 /**

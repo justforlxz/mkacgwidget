@@ -1,4 +1,4 @@
-#include "hpbar.h"
+#include "headers/hpbar.h"
 #include "QQuickView"
 #include "QQmlContext"
 #include "QQmlEngine"

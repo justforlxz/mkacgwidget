@@ -66,7 +66,7 @@ Item {
         }
         FontLoader {
                id: saofont
-               source: "Fonts/SAOUI.ttf"
+               source: "../Fonts/SAOUI.ttf"
            }
         Label{
             id:hpbar_name

@@ -1,4 +1,4 @@
-#include "Voice.h"
+#include "headers/Voice.h"
 #include "iostream"
 #include <QObject>
 Voice::Voice():m_baiduVop("pxxHWz9KmNsleFBsuWHQ77Hd", "b5a9a0eb50d410b0dccd3eec5fc30388") {

@@ -1,7 +1,8 @@
-#include "player.h"
+#include "headers/player.h"
 #include "QQuickView"
 #include "QQmlContext"
-#include "Voice.h"
+#include "headers/Voice.h"
+#include "QTime"
 Player::Player() {
     viwer.setFlags(Qt::FramelessWindowHint);
     viwer.setColor(QColor(Qt::transparent));
@@ -79,7 +80,7 @@ void Player::slot_hex2dec() {
 
 //返回随机数据
     int ran_num=0;
-    srand((unsigned)time(0));
+
     ran_num=rand()%list_url.size();
     qDebug()<<"当前播放歌曲:"<<list_name[ran_num]<<"  链接:"<<list_url[ran_num];
     emit Player::sig(list_url[ran_num]);
