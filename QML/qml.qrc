@@ -4,7 +4,6 @@
         <file>main.qml</file>
         <file>qml.qrc</file>
         <file>sao_hpbar.qml</file>
-        <file>test.qml</file>
         <file>../Images/back1.png</file>
         <file>../Images/back2.png</file>
         <file>../Images/hp_bar.png</file>

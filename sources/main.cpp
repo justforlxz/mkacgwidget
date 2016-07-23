@@ -68,17 +68,17 @@ int main(int argc, char *argv[]) {
 
 
 //电量类 Hpbar
-    Hpbar *hpbar=new Hpbar();
-    hpbar->show();
-    hpbar->setXY(saohpbarX,saohpbarY);
+    Hpbar hpbar;
+    hpbar.show();
+    hpbar.setXY(saohpbarX,saohpbarY);
 //虚拟助理 hajime
-    Player *player=new Player();
-    player->show();
-    player->setXY(hajimeX,hajimeY);
+    Player player;
+    player.show();
+    player.setXY(hajimeX,hajimeY);
 
 //释放内存
-    delete player;
-    delete hpbar;
+//    delete player;
+//    delete hpbar;
     return app.exec();
 }
 /**
