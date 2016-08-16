@@ -3,6 +3,7 @@ TEMPLATE = app
 QT += qml quick
 QT += widgets
 QT += multimedia
+QT += dbus
 CONFIG += c++11
 
 
@@ -11,7 +12,8 @@ HEADERS += \
     headers/Voice.h \
     headers/JasonQt/JasonQt_Net.h \
     headers/JasonQt/JasonQt_Vop.h \
-    headers/hpbar.h
+    headers/hpbar.h \
+    headers/dbusaudiosource.h
 
 SOURCES += \
     sources/main.cpp \
@@ -20,6 +22,7 @@ SOURCES += \
     sources/hpbar.cpp \
     sources/JasonQt/JasonQt_Net.cpp \
     sources/JasonQt/JasonQt_Vop.cpp \
+    sources/dbusaudiosource.cpp
 
 
 RESOURCES += QML/qml.qrc

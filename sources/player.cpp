@@ -24,8 +24,8 @@ void Player::show() {
                      _voice,SLOT(startInput()));
 
     QObject::connect(playerObject,SIGNAL(voice_end()),\
-
                      _voice,SLOT(inputFinish()));
+
     QObject::connect(_voice,SIGNAL(sig(QVariant)),\
                      playerObject,SLOT(show_text(QVariant)));
 //一言
