@@ -13,6 +13,7 @@ public:
     Voice();
     QString backText;
     QTimer *t = new QTimer(this);
+    QThread     *m_pTimerThread; //定时器依赖线程
     float volume;
     ~Voice();
 signals:

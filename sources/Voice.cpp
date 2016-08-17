@@ -6,6 +6,7 @@
 Voice::Voice():m_baiduVop("pxxHWz9KmNsleFBsuWHQ77Hd", "b5a9a0eb50d410b0dccd3eec5fc30388") {
 std::cout<<"构造函数运行了";
 std::cout<< "Refresh token:" << m_baiduVop.refreshToken();
+
 }
 
 void Voice::inputFinish() {
@@ -28,35 +29,37 @@ void Voice::startInput() {
                                           "PropertiesChanged", "sa{sv}as",
                                           this, SLOT(handleMeterVolumeChanged(QDBusMessage)));
 // m_baiduVop("pxxHWz9KmNsleFBsuWHQ77Hd", "b5a9a0eb50d410b0dccd3eec5fc30388");
-    if(t->isActive()){
-        t->stop();
-    }
-    t->singleShot(1000,this,SLOT(timer()));
+//    t->singleShot(200,this,SLOT(timer()));
 //    t->start(1000);
 // QObject::connect(t,SIGNAL(timeout()),this,SLOT(timer()));
 //     m_meterTimer->start(1000);
+
 }
 
 Voice::~Voice() {
 
 }
 void Voice::handleMeterVolumeChanged(const QDBusMessage &msg){
-       t->start();
+
     QList<QVariant> arguments = msg.arguments();
     QVariantMap changedProps = qdbus_cast<QVariantMap>(arguments.at(1).value<QDBusArgument>());
     if (changedProps.contains("Volume")) {
-        qDebug() << "meter change to " << changedProps.value("Volume").toDouble()*100;
+//        qDebug() << "meter change to " << changedProps.value("Volume").toDouble()*100;
 //        emit inputMeterVolumeChanged(changedProps.value("Volume").toDouble() * 100);
         volume=changedProps.value("Volume").toDouble()*100;
+         qDebug()<<volume;
     }
 }
 void Voice::timer(){
-            if(volume>11.0) {
-                //如果大于0.5，表明说话，然后重新计时
-                qDebug()<<"刷新计时" << "meter change to " << volume;
-            } else {
-                qDebug()<<"开始计时" << "meter change to " << volume;
-//                QObject::connect(t,SIGNAL(timeout()),SLOT(timer()));
-//                t->singleShot(2000,this,SLOT(timer()));
-            }
+        qDebug()<<volume;
+                if(volume>50.0) {
+                    //如果大于0.5，表明说话，然后重新计时
+                    qDebug()<<"刷新计时" << "meter change to " << volume;
+//                    m_baiduVop.start();
+                } else {
+                    qDebug()<<"开始计时" << "meter change to " << volume;
+    //                QObject::connect(t,SIGNAL(timeout()),SLOT(timer()));
+    //                t->singleShot(2000,this,SLOT(timer()));
+                }
+
 }
