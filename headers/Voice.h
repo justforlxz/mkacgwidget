@@ -12,6 +12,8 @@ class Voice: public QObject
 public:
     Voice();
     QString backText;
+    QTimer *t = new QTimer(this);
+    float volume;
     ~Voice();
 signals:
     void sig(QVariant str_num);
@@ -22,6 +24,7 @@ public slots:
     void inputFinish();
     void startInput();
     void handleMeterVolumeChanged(const QDBusMessage &msg);
+    void timer();
 private:
         JasonQt_Vop::BaiduVop m_baiduVop;
         DBusAudioSource     *m_defaultSource = nullptr;
