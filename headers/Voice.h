@@ -28,8 +28,7 @@ public slots:
     void inputFinish();
     void startInput();
     void handleMeterVolumeChanged(const QDBusMessage &msg);
-    void test();
-    void test1();
+    void startVoice();
 
 private:
         JasonQt_Vop::BaiduVop m_baiduVop;

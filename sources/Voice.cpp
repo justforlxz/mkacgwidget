@@ -14,6 +14,9 @@ std::cout<< "Refresh token:" << m_baiduVop.refreshToken();
                                           "PropertiesChanged", "sa{sv}as",
                                           this, SLOT(handleMeterVolumeChanged(QDBusMessage)));
 switchValue = 0;//0为为开启录音，1为开启录音。
+timer->start(100);
+connect(timer,SIGNAL(timeout()),
+    this,SLOT(startVoice()));
 }
 
 void Voice::inputFinish() {
@@ -61,44 +64,30 @@ void Voice::handleMeterVolumeChanged(const QDBusMessage &msg){
             */
     }
 }
-void Voice::test(){
-//  qDebug()<<volume;
-//    QDBusConnection::sessionBus().connect("com.deepin.daemon.Audio",
-//                                          "/com/deepin/daemon/Audio/Metersource2",
-//                                          "org.freedesktop.DBus.Properties",
-//                                          "PropertiesChanged", "sa{sv}as",
-//                                          this, SLOT(handleMeterVolumeChanged(QDBusMessage)));
-    timer->start(500);
-    connect(timer,SIGNAL(timeout()),
-        this,SLOT(test1()));
-
-}
-void Voice::test1(){
-    if(volume>30){
-//如果没开启录音，判断一下音频,然后发射信号
+//该函数每300毫秒调用一次。
+void Voice::startVoice() {
+//如果音量大于30，开始执行说话的操作。
+    if(volume>30) {
+//如果switchValue为0，开始执行录音操作
          if(switchValue==0) {
              emit start();
              switchValue=1;
              qDebug()<<switchValue<<"这里是开始录音"<<volume;
              time->start();
+         } else {
+             time->restart();
          }
     } else {
-//如果音量小于设定值，发射停止信号
-        if(switchValue==0){
+//如果音量小于30，开始执行提交操作
+//此处判断是否是说话中
+        if(switchValue==0) {
             qDebug()<<"抱歉，你来到了外太空";
         } else {
-            if(time->elapsed()<1500){
-                 qDebug()<<"小于三秒，调用个屁开始";
-    //             time->restart();
-            } else if(time->elapsed()>3000) {
-    //            qDebug()<<"你丫的不说话";
-    //            m_baiduVop.stop();
-    //            time->restart();
+//如果不说话了
+            if(time->elapsed()>2000) {
                 switchValue=0;
                 emit end();
                 qDebug()<<switchValue<<"这里是结束录音"<<volume;
-            } else {
-                    qDebug()<<"我也不知道怎么了，反正就进来了。";
             }
         }
     }
