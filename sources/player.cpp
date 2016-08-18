@@ -21,10 +21,13 @@ void Player::show() {
                      playerObject,SLOT(loaded_play(QVariant)));
 //设置语音
     QObject::connect(playerObject,SIGNAL(voice_start()),\
+                     _voice,SLOT(test1()));
+    QObject::connect(_voice,SIGNAL(start()),
                      _voice,SLOT(startInput()));
-
-    QObject::connect(playerObject,SIGNAL(voice_end()),\
+    QObject::connect(_voice,SIGNAL(end()),
                      _voice,SLOT(inputFinish()));
+//    QObject::connect(playerObject,SIGNAL(voice_end()),\
+//                     _voice,SLOT(inputFinish()));
 
     QObject::connect(_voice,SIGNAL(sig(QVariant)),\
                      playerObject,SLOT(show_text(QVariant)));

@@ -41,7 +41,7 @@ public slots:
     bool refreshToken(void);
 
     bool start(void);
-
+    bool stop(void);
     std::pair<bool, QString> finish(void);
 };
 

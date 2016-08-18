@@ -62,6 +62,10 @@ bool BaiduVop::start(void)
 
     return true;
 }
+bool BaiduVop::stop(void){
+    m_audioInput->stop();
+    return true;
+}
 
 std::pair<bool, QString> BaiduVop::finish(void)
 {
