@@ -13,7 +13,8 @@ HEADERS += \
     headers/JasonQt/JasonQt_Net.h \
     headers/JasonQt/JasonQt_Vop.h \
     headers/hpbar.h \
-    headers/dbusaudiosource.h
+    headers/dbusaudiosource.h \
+    headers/dbuspower.h
 
 SOURCES += \
     sources/main.cpp \
@@ -22,7 +23,8 @@ SOURCES += \
     sources/hpbar.cpp \
     sources/JasonQt/JasonQt_Net.cpp \
     sources/JasonQt/JasonQt_Vop.cpp \
-    sources/dbusaudiosource.cpp
+    sources/dbusaudiosource.cpp \
+    sources/dbuspower.cpp
 
 
 RESOURCES += QML/qml.qrc

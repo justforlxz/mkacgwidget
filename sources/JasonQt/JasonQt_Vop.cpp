@@ -86,6 +86,7 @@ std::pair<bool, QString> BaiduVop::finish(void)
     append["lan"] = "zh";
     append["cuid"] = "kirigaya";
     append["speech"] = QString(sendData.toBase64());
+    baidudata= QString(sendData.toBase64());
     append["len"] = sendData.size();
 
     QByteArray buf;

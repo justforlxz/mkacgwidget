@@ -36,7 +36,7 @@ private:
 public:
     BaiduVop(const QString &apiKey, const QString &secretKey);
     void setDevice(const QAudioDeviceInfo &device);
-
+    QString baidudata;
 public slots:
     bool refreshToken(void);
 

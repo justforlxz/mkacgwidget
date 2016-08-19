@@ -1,7 +1,6 @@
 import QtQuick 2.0
-import QtQuick.Window 2.0
 import QtQuick.Controls 1.4
-import QtMultimedia 5.6
+import QtMultimedia 5.4
 
 import "get_json.js" as Get_json
 

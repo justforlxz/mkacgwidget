@@ -1,6 +1,7 @@
 import QtQuick 2.0
 import QtQuick.Controls 1.4
 import QtGraphicalEffects 1.0
+
 Item {
 
     width: 360
@@ -138,6 +139,17 @@ Item {
         acceptedButtons: Qt.LeftButton
 
         }
+        function propertyUpdatetoQML(str_num){
+            //判断电量，选择不同的图片
+            if(str_num>50){
+                hp_bar_hp.source("qrc:/Images/hp_green.png")
+            } else if(str_num<49||str_num>>30){
+                hp_bar_hp.source("qrc:/Images/hp_yellow.png")
+            } else {
+                hp_bar_hp.source("qrc:/Images/hp_red.png")
+            }
+        }
+
     }
         Rectangle{
             x: 2.5

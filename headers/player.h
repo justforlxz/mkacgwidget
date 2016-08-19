@@ -15,7 +15,6 @@
 #include <string>
 #include <QVector>
 #include "QQuickView"
-class playerData;
 
 class Player : public QObject
 {

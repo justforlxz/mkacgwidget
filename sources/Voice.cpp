@@ -28,6 +28,7 @@ void Voice::inputFinish() {
         std::cout<<data.second.toStdString();
     } else {
         emit Voice::sig("识别错误");
+        std::cout<<data.first;
     }
     std::cout<< "Refresh token:" << m_baiduVop.refreshToken();
 }
@@ -64,7 +65,7 @@ void Voice::handleMeterVolumeChanged(const QDBusMessage &msg){
             */
     }
 }
-//该函数每300毫秒调用一次。
+//该函数每100毫秒调用一次。
 void Voice::startVoice() {
 //如果音量大于30，开始执行说话的操作。
     if(volume>30) {
@@ -81,13 +82,14 @@ void Voice::startVoice() {
 //如果音量小于30，开始执行提交操作
 //此处判断是否是说话中
         if(switchValue==0) {
-            qDebug()<<"抱歉，你来到了外太空";
+//            qDebug()<<"抱歉，你来到了外太空";
         } else {
 //如果不说话了
             if(time->elapsed()>2000) {
                 switchValue=0;
                 emit end();
                 qDebug()<<switchValue<<"这里是结束录音"<<volume;
+                qDebug()<<m_baiduVop.baidudata;
             }
         }
     }
