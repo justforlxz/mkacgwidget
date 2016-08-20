@@ -37,7 +37,6 @@ public slots:
     void slot_hex2dec();
     void slot_hitokoto();
 
-private:
 };
 
 #endif // PLAYER_H

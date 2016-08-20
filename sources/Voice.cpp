@@ -47,22 +47,6 @@ void Voice::handleMeterVolumeChanged(const QDBusMessage &msg){
 //        qDebug() << "meter change to " << changedProps.value("Volume").toDouble()*100;
 //        emit inputMeterVolumeChanged(changedProps.value("Volume").toDouble() * 100);
         volume=changedProps.value("Volume").toDouble()*100;
-//        qDebug()<<volume;
-/*
-            if(changedProps.value("Volume").toDouble()*100>40){
-//如果没开启录音，判断一下音频,然后发射信号
-                 if(switchValue==0) {
-                     emit start();
-                     switchValue=1;
-                     qDebug()<<switchValue<<"这里是开始录音";
-                 }
-            } else {
-//如果音量小于设定值，发射停止信号
-                switchValue=0;
-                emit end();
-                qDebug()<<switchValue<<"这里是结束录音";
-            }
-            */
     }
 }
 //该函数每100毫秒调用一次。

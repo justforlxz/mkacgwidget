@@ -4,29 +4,43 @@
 #include "QDBusReply"
 Hpbar::Hpbar():m_powerInter(new DBusPower())
 {
-    sao_hpbar.setFlags(Qt::FramelessWindowHint);
-    sao_hpbar.setColor(QColor(Qt::transparent));
-    sao_hpbar.setSource(QUrl("qrc:/sao_hpbar.qml"));
+    viwer.setFlags(Qt::FramelessWindowHint);
+    viwer.setColor(QColor(Qt::transparent));
 
-}
-int Hpbar::show(){
-    sao_hpbar.show();
-    sao_hpbar.rootContext()->setContextProperty("mainwindow",&sao_hpbar);
-    QObject *object = sao_hpbar.rootObject();
+    viwer.setSource(QUrl("qrc:/sao_hpbar.qml"));
+
+    QObject *viwerObject = viwer.rootObject();
 
     QObject::connect(m_powerInter,SIGNAL(BatteryPercentageChanged()),\
-                 this,SLOT(propertyChanged()));
-
-    QObject::connect(this,SIGNAL(propertyUpdate(QVariant)),
-                 object,SLOT(propertyUpdatetoQML(QVariant)));
-
+                 this,SLOT(BatteryPercentageChanged()));
+    QObject::connect(m_powerInter,SIGNAL(BatteryStateChanged()),\
+                     this,SLOT(BatteryPercentageChanged()));
+    QObject::connect(this,SIGNAL(propertyUpdate(QVariant)),\
+                 viwerObject,SLOT(propertyUpdatetoQML(QVariant)));
+    QObject::connect(this,SIGNAL(propertyState(QVariant)),\
+                     viwerObject,SLOT(propertyStatetoQML(QVariant)));
+}
+int Hpbar::show(){
+    viwer.show();
+    viwer.rootContext()->setContextProperty("mainwindow",&viwer);
+    BatteryPercentageChanged();
 }
 void Hpbar::setXY(float saohpbarX, float  saohpbarY){
-    sao_hpbar.setX(saohpbarX);
-    sao_hpbar.setY(saohpbarY);
+    viwer.setX(saohpbarX);
+    viwer.setY(saohpbarY);
 }
-void Hpbar::propertyChanged(){
+void Hpbar::BatteryPercentageChanged(){
  const int percentage = m_powerInter->batteryPercentage()["Display"];
-    qDebug()<<percentage;
-    emit Hpbar::propertyUpdate(percentage);
+ BatteryPercentage=percentage;
+ const bool plugged = !m_powerInter->onBattery();
+ if(plugged==true){
+      qDebug()<<"连接电源";
+       emit Hpbar::propertyUpdate(BatteryPercentage);
+      emit Hpbar::propertyState("true");
+ } else {
+      qDebug()<<"断开电源";
+       emit Hpbar::propertyUpdate(BatteryPercentage);
+       emit Hpbar::propertyState("false");
+ }
 }
+

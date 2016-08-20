@@ -5,71 +5,58 @@ import QtGraphicalEffects 1.0
 Item {
 
     width: 360
-    height: 70
+    height: 121
+
     Rectangle {
         width: 352
         height: 62
         anchors.fill: parent
-        color:Qt.rgba(0,0,0,0.0)
+        color: "transparent"
         anchors.rightMargin: 0
         anchors.bottomMargin: 0
         anchors.leftMargin: 8
         anchors.topMargin: 0
-        Image{
-            id:hp_bar
-            objectName: "hp_bar_objectName"
-            source: "qrc:/Images/hp_bar.png"
+        Image {
+            id: hp_bar
+            source: "../Images/hp_bar.png"
+            width: 352
+            height: 62
+            z: 1
+        }
 
-        }
-        Image{
-            id:hp_bar_hp
-            x: 72.5
-            y: 12
-            source:"qrc:/Images/hp_green.png"
-            visible: false
-        }
-        Canvas {
-            id: mycanvas
-            x: 73
-            y: 12
+        Item {
+            x:72.5
+            y:12
             width: 258
             height: 24
+            Image {
+                id: image
+                width: 258
+                height: 24
+                source:"../Images/hp_green.png"
+                smooth: true
+                visible: false
+            }
+            Image {
+                id: mask
+                width: 258
+                height: 24
+                source:"../Images/hp_green_mask.png"
+                smooth: true
+                visible: false
+            }
 
-          onPaint: {
-                  var ctx = getContext("2d")
-             // store current context setup
-             ctx.save()
-             ctx.strokeStyle = 'rgba(0,0,0,0)'
-             // create a triangle as clip region
-             ctx.beginPath()
-             ctx.moveTo(0,0)
-             ctx.lineTo(258,0)
-             ctx.lineTo(253,15)
-             ctx.lineTo(135,15)
-             ctx.lineTo(132,24)
-             ctx.lineTo(0,24)
-             ctx.closePath()
-             // translate coordinate system
-             ctx.translate(0,0)
-             ctx.clip()  // create clip from triangle path
-             // draw image with clip applied
-             ctx.drawImage('Images/hp_green.png', 0,0)
-             // draw stroke around path
-             ctx.stroke()
-             // restore previous setup
-             ctx.restore()
-
-         }
-        Component.onCompleted: {
-            loadImage("Images/hp_green.png")
-        }
-
+            OpacityMask {
+                anchors.fill: mask
+                source: image
+                maskSource: mask
+            }
         }
         FontLoader {
                id: saofont
                source: "../Fonts/SAOUI.ttf"
            }
-        Label{
+        Label {
             id:hpbar_name
             x: 35
             y: 12
@@ -84,7 +71,7 @@ Item {
             horizontalAlignment: Text.AlignHCenter
             font.family: saofont.name
         }
-        Label{
+        Label {
             id:hpbar_hp
             x: 218
             y: 36
@@ -99,7 +86,7 @@ Item {
             horizontalAlignment: Text.AlignHCenter
             font.family: saofont.name
         }
-        Label{
+        Label {
             id:hpbar_level
             x: 301
             y: 39
@@ -114,16 +101,33 @@ Item {
             horizontalAlignment: Text.AlignHCenter
             font.family: saofont.name
         }
+        Image {
+            id: sp
+            x: -1
+            y: 44
+            width: 212
+            height: 42
+            source: "../Images/sp_bar.png"
+        }
+        Image {
+            id: sp_hp
+            x: 72
+            y: 54
+            width: 125
+            height: 21
+            source: "../Images/sp_green.png"
+        }
 
         MouseArea {
         id: dragRegion1
         anchors.fill: parent
         property point clickPos: "0,0"
+        x: 0
         width: 352
         height: 62
         anchors.rightMargin: 0
         anchors.bottomMargin: 0
-        anchors.leftMargin: 0
+        anchors.leftMargin: -8
         anchors.topMargin: 0
         onPressed: {
             clickPos  = Qt.point(mouse.x,mouse.y)
@@ -139,31 +143,42 @@ Item {
         acceptedButtons: Qt.LeftButton
 
         }
-        function propertyUpdatetoQML(str_num){
-            //判断电量，选择不同的图片
-            if(str_num>50){
-                hp_bar_hp.source("qrc:/Images/hp_green.png")
-            } else if(str_num<49||str_num>>30){
-                hp_bar_hp.source("qrc:/Images/hp_yellow.png")
-            } else {
-                hp_bar_hp.source("qrc:/Images/hp_red.png")
-            }
-        }
+
 
     }
-        Rectangle{
+    function propertyUpdatetoQML(str_num) {
+        console.log(str_num)
+           mask.source="qrc:/Images/hp_mask/hp_mask00"+str_num+".png";
+        //判断电量，选择不同的图片
+          if(str_num>50) {
+                image.source="qrc:/Images/hp_green.png"
+          } else if(str_num<=50||str_num>=30) {
+                image.source="qrc:/Images/hp_yellow.png"
+          } else {
+                image.source="qrc:/Images/hp_red.png"
+          }
+
+    }
+     function propertyStatetoQML(str_num) {
+        if(str_num == "true") {
+            hp_bar.source="qrc:/Images/hp_bar_ex.png"
+        } else {
+             hp_bar.source="qrc:/Images/hp_bar.png"
+        }
+     }
+        Rectangle {
             x: 2.5
             y: 13.5
             width: 22
             height: 22
 
             color:Qt.rgba(0,0,0,0.0)
-            Image{
+            Image {
                 id:hpbar_icon
                 x: 0
                 y: 0
             }
-            MouseArea{
+            MouseArea {
                 anchors.fill: parent
                 hoverEnabled: true
                 onEntered: {
@@ -175,9 +190,8 @@ Item {
                               }
             }
             Component.onCompleted: {
-                  hpbar_icon.source="qrc:/Images/icon_normal.png";
+                hpbar_icon.source="qrc:/Images/icon_normal.png";
             }
         }
-
 
 }

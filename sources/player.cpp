@@ -19,6 +19,7 @@ void Player::show() {
                      this,SLOT(slot_hex2dec()));
     QObject::connect(this,SIGNAL(sig(QVariant)),\
                      playerObject,SLOT(loaded_play(QVariant)));
+
 //设置语音
 
     QObject::connect(_voice,SIGNAL(start()),

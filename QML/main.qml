@@ -107,7 +107,6 @@ Item{
                 onTriggered: {next()}
             }
             MenuItem {
-
                 id:redio_off
                 text: "关闭电台"
                 visible: false
