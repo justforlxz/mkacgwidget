@@ -3,9 +3,9 @@ import QtQuick.Controls 1.4
 import QtGraphicalEffects 1.0
 
 Item {
-
-    width: 360
-    height: 121
+    signal xy(string x,string y)
+    width: 367
+    height: 146
 
     Rectangle {
         width: 352
@@ -18,7 +18,7 @@ Item {
         anchors.topMargin: 0
         Image {
             id: hp_bar
-            source: "../Images/hp_bar.png"
+            source: "qrc:/Images/hp_bar.png"
             width: 352
             height: 62
             z: 1
@@ -33,7 +33,7 @@ Item {
                 id: image
                 width: 258
                 height: 24
-                source:"../Images/hp_green.png"
+                source:"qrc:/Images/hp_green.png"
                 smooth: true
                 visible: false
             }
@@ -41,7 +41,7 @@ Item {
                 id: mask
                 width: 258
                 height: 24
-                source:"../Images/hp_green_mask.png"
+                source:"qrc:/Images/hp_green_mask.png"
                 smooth: true
                 visible: false
             }
@@ -54,7 +54,7 @@ Item {
         }
         FontLoader {
                id: saofont
-               source: "../Fonts/SAOUI.ttf"
+               source: "qrc:/Fonts/SAOUI.ttf"
            }
         Label {
             id:hpbar_name
@@ -64,6 +64,7 @@ Item {
             height: 27
             color: "#ffffff"
             text:"Kirito"
+            visible: true
             font.bold: true
             font.pointSize: 12
             textFormat: Text.AutoText
@@ -73,7 +74,7 @@ Item {
         }
         Label {
             id:hpbar_hp
-            x: 218
+            x: 222
             y: 36
             width: 74
             height: 23
@@ -92,7 +93,7 @@ Item {
             y: 39
             width: 36
             height: 16
-            text:"Lv.96"
+            text:"Lv.1"
             color:"#ffffff"
             font.bold: true
             font.pointSize: 10
@@ -101,21 +102,118 @@ Item {
             horizontalAlignment: Text.AlignHCenter
             font.family: saofont.name
         }
-        Image {
-            id: sp
-            x: -1
-            y: 44
-            width: 212
-            height: 42
-            source: "../Images/sp_bar.png"
+        Item{
+            id: exp
+            Image {
+                id: exp_image
+                x: 0
+                y: 47
+                z:1
+                width: 212
+                height: 42
+                source: "qrc:/Images/sp_bar.png"
+            }
+            Image {
+                id: exp_sp
+                x: 72
+                y: 57
+                width: 125
+                height: 21
+                source: "qrc:/Images/sp_green.png"
+                smooth: true
+                visible: false
+            }
+
+            Image {
+                id: exp_mask
+                x: 72
+                y: 57
+                width: 125
+                height: 21
+                source: "qrc:/Images/sp_mask/sp_mask0100.png"
+                smooth: true
+                visible: false
+            }
+            Label{
+                id: exp_label
+                x: 33
+                y: 57
+                width: 38
+                height: 25
+                text: "EXP"
+                color:"#ffffff"
+                font.bold: true
+                font.pointSize: 10
+                textFormat: Text.AutoText
+                verticalAlignment: Text.AlignVCenter
+                horizontalAlignment: Text.AlignHCenter
+                font.family: saofont.name
+            }
+            OpacityMask {
+                anchors.fill: exp_mask
+                source: exp_sp
+                maskSource: exp_mask
+            }
         }
-        Image {
-            id: sp_hp
-            x: 72
-            y: 54
-            width: 125
-            height: 21
-            source: "../Images/sp_green.png"
+
+        Item{
+            id: sp
+            x: 0
+            y: 48
+            Image {
+                id: sp_image
+                x: 0
+                y: 38
+                z:1
+                width: 212
+                height: 42
+                source: "qrc:/Images/sp_bar.png"
+            }
+            Image {
+                id: sp_sp
+                x: 72
+                y: 48
+                width: 125
+                height: 21
+                source: "qrc:/Images/sp_green.png"
+                smooth: true
+                visible: false
+            }
+
+            Image {
+                id: sp_mask
+                x: 72
+                y: 48
+                width: 125
+                height: 21
+                source: "qrc:/Images/sp_mask/sp_mask0100.png"
+                smooth: true
+                visible: false
+            }
+            Label{
+                id: sp_label
+                x: 33
+                y: 48
+                width: 38
+                height: 25
+                text: "SP"
+                color:"#ffffff"
+                font.bold: true
+                font.pointSize: 10
+                textFormat: Text.AutoText
+                verticalAlignment: Text.AlignVCenter
+                horizontalAlignment: Text.AlignHCenter
+                font.family: saofont.name
+            }
+            OpacityMask {
+                anchors.rightMargin: 0
+                anchors.bottomMargin: 1
+                anchors.leftMargin: 0
+                anchors.topMargin: -1
+                anchors.fill: sp_mask
+                source: sp_sp
+                maskSource: sp_mask
+            }
         }
 
         MouseArea {
@@ -138,7 +236,7 @@ Item {
             //如果mainwindow继承自QWidget,用setPos
             mainwindow.setX(mainwindow.x+delta.x)
             mainwindow.setY(mainwindow.y+delta.y)
-
+            xy(mainwindow.x+delta.x,mainwindow.y+delta.y)
         }
         acceptedButtons: Qt.LeftButton
 

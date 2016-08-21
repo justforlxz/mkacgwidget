@@ -25,7 +25,7 @@ public:
     QList<QString> list_url;
     QList<QString> list_name;
     QQuickView viwer;
-    void setXY(float hajimeX,float hajimeY);
+
     void show();
     ~Player();
 
@@ -33,9 +33,11 @@ signals:
     void sig_disp();
     void sig(QVariant str_num);
     void sig_hitokoto(QVariant str_num);
+    void getXY(float x,float y);
 public slots:
     void slot_hex2dec();
     void slot_hitokoto();
+    void setXY(float hajimeX,float hajimeY);
 
 };
 

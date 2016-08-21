@@ -39,6 +39,7 @@ void Player::show() {
                      playerObject,SLOT(get_hitokoto(QVariant)));
 }
 void Player::setXY(float hajimeX, float hajimeY) {
+    qDebug()<<hajimeX<<hajimeY;
     viwer.setX(hajimeX);
     viwer.setY(hajimeY);
 }

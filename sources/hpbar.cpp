@@ -19,6 +19,8 @@ Hpbar::Hpbar():m_powerInter(new DBusPower())
                  viwerObject,SLOT(propertyUpdatetoQML(QVariant)));
     QObject::connect(this,SIGNAL(propertyState(QVariant)),\
                      viwerObject,SLOT(propertyStatetoQML(QVariant)));
+    QObject::connect(viwerObject,SIGNAL(xy(QString,QString)),\
+                     this,SLOT(XY(QString,QString)));
 }
 int Hpbar::show(){
     viwer.show();
@@ -26,6 +28,7 @@ int Hpbar::show(){
     BatteryPercentageChanged();
 }
 void Hpbar::setXY(float saohpbarX, float  saohpbarY){
+    qDebug()<<saohpbarX<<saohpbarY;
     viwer.setX(saohpbarX);
     viwer.setY(saohpbarY);
 }
@@ -43,4 +46,9 @@ void Hpbar::BatteryPercentageChanged(){
        emit Hpbar::propertyState("false");
  }
 }
+void Hpbar::setValue(float lv, float exp) {
 
+}
+void Hpbar::XY(QString x, QString y){
+    emit Hpbar::getXY(x.toDouble(),y.toDouble());
+}

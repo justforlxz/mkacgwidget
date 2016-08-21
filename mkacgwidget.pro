@@ -14,7 +14,9 @@ HEADERS += \
     headers/JasonQt/JasonQt_Vop.h \
     headers/hpbar.h \
     headers/dbusaudiosource.h \
-    headers/dbuspower.h
+    headers/dbuspower.h \
+    headers/settings.h \
+    headers/core.h
 
 SOURCES += \
     sources/main.cpp \
@@ -24,12 +26,14 @@ SOURCES += \
     sources/JasonQt/JasonQt_Net.cpp \
     sources/JasonQt/JasonQt_Vop.cpp \
     sources/dbusaudiosource.cpp \
-    sources/dbuspower.cpp
+    sources/dbuspower.cpp \
+    sources/settings.cpp \
+    sources/core.cpp
 
 
 RESOURCES += QML/qml.qrc
 
-# Additional import path used to resolve QML modules in Qt Creator's code model
+# Additional import path usd to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =
 
 # Default rules for deployment.

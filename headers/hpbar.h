@@ -16,18 +16,19 @@ public:
     int show();
     float saohpbarX       = 0;
     float saohpbarY       = 0;
-    void setXY(float saohpbarX,float saohpbarY);
     QQuickView viwer;
-
     QVariant  BatteryPercentage=100;
 
 signals:
     void propertyUpdate(QVariant str_num);
     void propertyState(QVariant str_num);
-
+    void getXY(float x,float y);
 
 public slots:
     void BatteryPercentageChanged();
+    void setXY(float saohpbarX,float saohpbarY);
+    void setValue(float lv,float exp);
+    void XY(QString x,QString y);
 
 private:
     DBusPower *m_powerInter;
