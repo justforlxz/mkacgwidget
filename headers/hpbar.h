@@ -23,11 +23,12 @@ signals:
     void propertyUpdate(QVariant str_num);
     void propertyState(QVariant str_num);
     void getXY(float x,float y);
+    void setLv_Exp(QVariant lv,QVariant exp,QVariant Minute,QVariant Mask);
 
 public slots:
     void BatteryPercentageChanged();
     void setXY(float saohpbarX,float saohpbarY);
-    void setValue(float lv,float exp);
+    void setValue(int lv,int exp,int Minute,int Mask);
     void XY(QString x,QString y);
 
 private:

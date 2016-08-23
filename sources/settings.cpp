@@ -17,18 +17,19 @@ void Settings::run(float width,float height){
                hajimeX   = configIniRead->value("/hajime/x").toFloat();
                hajimeY   = configIniRead->value("/hajime/y").toFloat();
                lv        = configIniRead->value("/sao_hpbar/lv").toFloat();
-               exp        = configIniRead->value("/sao_hpbar/exp").toFloat();
-
-
-               emit Settings::setHpbar_Lv_Exp(lv,exp);
+               exp       = configIniRead->value("/sao_hpbar/exp").toFloat();
+               Minute    = configIniRead->value("/sao_hpbar/Minute").toFloat();
+               emit Settings::setHpbar_Lv_Exp(lv,exp,Minute,(int)Minute/exp*100);
                emit Settings::setHpbar_XY(saohpbarX,saohpbarY);
                emit Settings::setPlayer_XY(hajimeX,hajimeY);
-
+               timer->start(1000*60*5);
+               connect(timer,SIGNAL(timeout()),this,SLOT(setLv_exp()));
                //读入入完成后删除指针
                delete configIniRead;
            } else {
                 Settings::setSettings();
            }
+
 }
 
 void Settings::setSettings(){
@@ -50,14 +51,17 @@ void Settings::setSettings(){
       hajimeY=screenHeight/2.2;
 
       configIniWrite->setValue("/sao_hpbar/lv",lv);
+      qDebug()<<"lv:"<<lv;
       configIniWrite->setValue("/sao_hpbar/exp",exp);
+      qDebug()<<"exp:"<<exp;
+      configIniWrite->setValue("/sao_hpbar/Minute",Minute);
 
-      emit Settings::setHpbar_Lv_Exp(lv,exp);
-      emit Settings::setHpbar_XY(saohpbarX,saohpbarY);
-      emit Settings::setPlayer_XY(hajimeX,hajimeY);
+//      emit Settings::setHpbar_Lv_Exp(lv,exp);
+//      emit Settings::setHpbar_XY(saohpbarX,saohpbarY);
+//      emit Settings::setPlayer_XY(hajimeX,hajimeY);
 }
 
-void Settings::getHpbar_Lv_Exp(float setlv, float setexp){
+void Settings::getHpbar_Lv_Exp(int setlv,int setexp){
     lv=setlv;
     exp=setexp;
     Settings::setSettings();
@@ -76,15 +80,17 @@ void Settings::getPlayer_XY(float setx, float sety){
     Settings::setSettings();
 
 }
-void Settings::setLv_exp(){
+void Settings::setLv_exp() {
+//五分钟调用一次该函数
+//exp初始为5
     qDebug()<<"setLv_exp";
-    int count=0;
-    if(Minute++ % 60==0){
-          count++;
-    }
-    if(count==lv){
+    if(Minute++ == exp) {
         lv++;
-        Settings::setSettings();
-        count=0;
+        exp=Minute*1.5+5;
     }
+    qDebug()<<"Minute:"<<Minute<<"exp:"<<exp;
+    Settings::setSettings();
+    int mask =(double)Minute/exp*100;
+    qDebug()<<"mask:"<<mask;
+    emit Settings::setHpbar_Lv_Exp(lv,exp,Minute,mask);
 }

@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import QtQml 2.2
 import QtQuick.Controls 1.4
 import QtGraphicalEffects 1.0
 
@@ -18,29 +19,25 @@ Item {
         anchors.topMargin: 0
         Image {
             id: hp_bar
-            source: "qrc:/Images/hp_bar.png"
+            source: "qrc:/Images/hp_bar_ex.png"
             width: 352
             height: 62
+            visible: true
             z: 1
         }
-
         Item {
-            x:72.5
-            y:12
+            x:68
+            y:15
             width: 258
             height: 24
             Image {
                 id: image
-                width: 258
-                height: 24
                 source:"qrc:/Images/hp_green.png"
                 smooth: true
                 visible: false
             }
             Image {
                 id: mask
-                width: 258
-                height: 24
                 source:"qrc:/Images/hp_green_mask.png"
                 smooth: true
                 visible: false
@@ -130,7 +127,7 @@ Item {
                 y: 57
                 width: 125
                 height: 21
-                source: "qrc:/Images/sp_mask/sp_mask0100.png"
+                source: "qrc:/Images/sp_mask/sp_mask00100.png"
                 smooth: true
                 visible: false
             }
@@ -186,7 +183,7 @@ Item {
                 y: 48
                 width: 125
                 height: 21
-                source: "qrc:/Images/sp_mask/sp_mask0100.png"
+                source: "qrc:/Images/sp_mask/sp_mask00100.png"
                 smooth: true
                 visible: false
             }
@@ -206,10 +203,6 @@ Item {
                 font.family: saofont.name
             }
             OpacityMask {
-                anchors.rightMargin: 0
-                anchors.bottomMargin: 1
-                anchors.leftMargin: 0
-                anchors.topMargin: -1
                 anchors.fill: sp_mask
                 source: sp_sp
                 maskSource: sp_mask
@@ -263,6 +256,12 @@ Item {
         } else {
              hp_bar.source="qrc:/Images/hp_bar.png"
         }
+     }
+     function  setValue(lv,exp,Minute,mask){
+         exp_mask.source="qrc:/Images/sp_mask/sp_mask00"+mask+".png";
+         hpbar_level.text="Lv."+lv;
+         hpbar_hp.text=Minute+"/"+exp;
+
      }
         Rectangle {
             x: 2.5

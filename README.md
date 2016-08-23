@@ -16,7 +16,11 @@
 
 ![ys](Github_pic/1.png)
 
-![ys](Github_pic/2.png)
+完成电量的监测和电池状态监测，完成经验值和升级。
+
+![ys](Github_pic/2-1.png)
+
+![ys](Github_pic/2-2.png)
 
 ![ys](Github_pic/3.png)
 
@@ -30,7 +34,7 @@
 
 ![ys](Github_pic/6.png)
 
-语音操作已经做了一半了，不知道如何控制录音长度，所以暂时只能录音五秒进行对话。
+语音操作已经做了一半了，实现了自动化录音及发送请求。
 
 ![ys](Github_pic/7.png)
 
