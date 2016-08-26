@@ -219,5 +219,6 @@
         <file>../Images/hp_mask/hp_mask0099.png</file>
         <file>../Images/hp_mask/hp_mask00100.png</file>
         <file>../Images/sp_mask/sp_mask00100.png</file>
+        <file>../Images/hp_green_mask.png</file>
     </qresource>
 </RCC>

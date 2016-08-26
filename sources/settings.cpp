@@ -22,13 +22,15 @@ void Settings::run(float width,float height){
                emit Settings::setHpbar_Lv_Exp(lv,exp,Minute,(int)Minute/exp*100);
                emit Settings::setHpbar_XY(saohpbarX,saohpbarY);
                emit Settings::setPlayer_XY(hajimeX,hajimeY);
-               timer->start(1000*60*5);
-               connect(timer,SIGNAL(timeout()),this,SLOT(setLv_exp()));
+
+
                //读入入完成后删除指针
                delete configIniRead;
            } else {
                 Settings::setSettings();
            }
+           timer->start(1000*60*5);
+           connect(timer,SIGNAL(timeout()),this,SLOT(setLv_exp()));
 
 }
 
