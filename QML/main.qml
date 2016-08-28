@@ -129,7 +129,7 @@ Item{
             MenuSeparator { }
             MenuItem {
                 text: "退出"
-                onTriggered: {}
+                onTriggered: { Qt.quit();}
 
             }
         }
@@ -138,9 +138,16 @@ Item{
 //Anime
         AnimatedImage {
             id: animation;
-            visible: false
-            playing: false
             source: "../Images/Anime/asuka_高兴.gif"
+            onCurrentFrameChanged: {
+                if(animation.currentFrame==animation.frameCount){
+                    animation.playing=false;
+                }
+            }
+            Component.onCompleted: {
+//                animation.visible=false;
+//                animation.playing=false;
+            }
         }
         Rectangle {
             id: show_window
@@ -174,16 +181,11 @@ Item{
             id:timer_anime
             interval: 1000;running: true;repeat: false
             onTriggered: {
-                animation.paused=true
                 animation.visible=false;
                 mainImage.visible=true;
             }
         }
     }
-
-
-
-
 
     function get_hitokoto(str){
         timer.stop()
@@ -219,10 +221,10 @@ Item{
                       "key=7319f41ea831612d94fb05c9de2cdaa3&info="+str_num,
                       function(result,json){
                           show_window.visible=true;
-                          mainImage.visible=false;
-                          animation.visible=true;
-                          animation.playing=true;
                           show_window_text.text=json.text;
+//                          mainImage.visible=false;
+//                          animation.visible=true;
+                          animation.playing=true;
                           console.log(result)
                      })
             timer.start()
