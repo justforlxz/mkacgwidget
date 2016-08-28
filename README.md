@@ -11,6 +11,12 @@
          |——界面
          |—|——（仿live2d的SSP）（SAO血两条）（mailBox）（IRC聊天室）
 ```
+依赖包
+Arch：
+
+```
+sudo pacman -S qt5-base qt5-declarative g++
+```
 
 运行示例
 

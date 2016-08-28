@@ -5,12 +5,12 @@ import QtMultimedia 5.4
 import "get_json.js" as Get_json
 
 Item{
-    width: 300
-    height: 300
     signal next()
     signal voice_start()
     signal voice_end()
     signal hitokoto()
+    width: 228
+    height: 202
     Audio{
         objectName: "player"
         id:player_player
@@ -29,43 +29,56 @@ Item{
      }
     }
     Rectangle {
-       anchors.fill: parent
+        x: 124
+        width: 100
+        height: 100
+        anchors.fill: parent
         color:Qt.rgba(0,0,0,0.0)
+        anchors.rightMargin: 175
+        anchors.bottomMargin: 280
+        anchors.leftMargin: 125
+        anchors.topMargin: 100
         Image{
             id:mainImage
-            x: 70
-            y: 70
-            width: 230
-            height: 230
+            width: 100
+            height: 100
+            visible: true
             fillMode: Image.PreserveAspectFit
-            source: "Images/back1.png"
+            source: "../Images/Anime/asuka.png"
+
+            MouseArea {
+                id: dragRegion
+                anchors.fill: parent
+                property point clickPos: "0,0"
+                x: 0
+                y: 0
+                width: 100
+                height: 100
+                anchors.rightMargin: 0
+                anchors.bottomMargin: 0
+                anchors.leftMargin: 0
+                anchors.topMargin: 0
+                onPressed: {
+                    clickPos  = Qt.point(mouse.x,mouse.y)
+                }
+                onPositionChanged: {
+                    //鼠标偏移量
+                    var delta = Qt.point(mouse.x-clickPos.x, mouse.y-clickPos.y)
+                    //如果mainwindow继承自QWidget,用setPos
+                    mainwindow.setX(mainwindow.x+delta.x)
+                    mainwindow.setY(mainwindow.y+delta.y)
+
+                }
+                acceptedButtons: Qt.LeftButton | Qt.RightButton // 激活右键（别落下这个）
+
+                onClicked: {
+                    if (mouse.button == Qt.RightButton) { // 右键菜单
+                        //
+                        contentMenu.popup()
+                    }
+                }
         }
 
-        MouseArea {
-            id: dragRegion
-            anchors.fill: parent
-            property point clickPos: "0,0"
-            anchors.leftMargin: 64
-            anchors.topMargin: 70
-            onPressed: {
-                clickPos  = Qt.point(mouse.x,mouse.y)
-            }
-            onPositionChanged: {
-                //鼠标偏移量
-                var delta = Qt.point(mouse.x-clickPos.x, mouse.y-clickPos.y)
-                //如果mainwindow继承自QWidget,用setPos
-                mainwindow.setX(mainwindow.x+delta.x)
-                mainwindow.setY(mainwindow.y+delta.y)
-
-            }
-            acceptedButtons: Qt.LeftButton | Qt.RightButton // 激活右键（别落下这个）
-
-            onClicked: {
-                if (mouse.button == Qt.RightButton) { // 右键菜单
-                    //
-                    contentMenu.popup()
-                }
-            }
         }
         Menu { // 右键菜单
             //title: "Edit"
@@ -120,10 +133,19 @@ Item{
 
             }
         }
+
+
+//Anime
+        AnimatedImage {
+            id: animation;
+            visible: false
+            playing: false
+            source: "../Images/Anime/asuka_高兴.gif"
+        }
         Rectangle {
             id: show_window
-            x: 8
-            y: 8
+            x: -112
+            y: -88
             width: 132
             height: 82
             color: "#47eeee"
@@ -141,23 +163,28 @@ Item{
             }
         }
         Component.onCompleted: {
-
                 get_hitokoto()
-
         }
         Timer {
             id:timer
             interval: 5000; running: true; repeat: false
             onTriggered: show_window.visible=false;
         }
-        Timer{
-            id:set_end
-            interval: 5000;repeat: false
+        Timer {
+            id:timer_anime
+            interval: 1000;running: true;repeat: false
             onTriggered: {
-                voice_end()
+                animation.paused=true
+                animation.visible=false;
+                mainImage.visible=true;
             }
         }
     }
+
+
+
+
+
     function get_hitokoto(str){
         timer.stop()
 //        Get_json.get("http://api.hitokoto.us/rand?charset=utf-8&encode=json",
@@ -181,6 +208,7 @@ Item{
     }
     function show_text(str_num){
         timer.stop()
+        timer_anime.stop()
         console.log(str_num)
         if(str_num=="识别错误"){
             show_window_text.text="识别错误";
@@ -191,10 +219,14 @@ Item{
                       "key=7319f41ea831612d94fb05c9de2cdaa3&info="+str_num,
                       function(result,json){
                           show_window.visible=true;
+                          mainImage.visible=false;
+                          animation.visible=true;
+                          animation.playing=true;
                           show_window_text.text=json.text;
                           console.log(result)
                      })
-          timer.start()
+            timer.start()
+            timer_anime.start()
         }
     }
 }
